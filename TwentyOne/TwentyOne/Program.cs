@@ -8,10 +8,10 @@ namespace TwentyOne
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
             Deck deck = new Deck();
-            deck = Shuffle(deck);
+            deck.Shuffle();
 
             foreach (Card card in deck.Cards)
             {
@@ -22,20 +22,6 @@ namespace TwentyOne
 
         }
 
-        static Deck Shuffle(Deck deck)
-        {
-            Random random = new Random();
-            List<Card> tempList = new List<Card>();
-
-            while (deck.Cards.Count > 0)
-            {
-                int randomIndex = random.Next(0, deck.Cards.Count);
-                tempList.Add(deck.Cards[randomIndex]);
-                deck.Cards.RemoveAt(randomIndex);
-            }
-
-            deck.Cards = tempList;
-            return deck;
-        }
+        
     }
 }
