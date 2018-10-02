@@ -8,7 +8,7 @@ namespace TwentyOne
 {
     public class Card
     {
-        public Card(string face, string suit)
+        public Card(Face face, Suit suit)
         {
             Suit = suit;
             Face = face;
@@ -19,8 +19,31 @@ namespace TwentyOne
             return Face + " of " + Suit;
         }
 
-        public string Suit { get; set; }
-        public string Face { get; set; }
+        public Suit Suit { get; set; }
+        public Face Face { get; set; }
 
+    }
+    public enum Suit
+    {
+        Clubs,
+        Diamonds,
+        Hearts,
+        Spades
+    }
+    public enum Face
+    {
+        Ace,
+        Two,
+        Three,
+        Four,
+        Five,
+        Six,
+        Seven,
+        Eight,
+        Nine,
+        Ten,
+        Jack,
+        Queen,
+        King
     }
 }

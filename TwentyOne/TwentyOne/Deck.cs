@@ -12,14 +12,14 @@ namespace TwentyOne
 
         public Deck()
         {
-            string[] suits = {"Spades", "Hearts", "Diamonds", "Clubs" };
-            string[] faces = { "Ace", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "King", "Queen", "Jack" };
+            Suit[] suits = {Suit.Clubs, Suit.Diamonds, Suit.Hearts, Suit.Spades };
+            Face[] faces = {Face.Ace, Face.Two, Face.Three, Face.Four, Face.Five, Face.Six, Face.Seven, Face.Eight, Face.Nine, Face.Ten, Face.Jack, Face.Queen, Face.King};
 
             Cards = new List<Card>();
 
-            foreach (string suit in suits)
+            foreach (Suit suit in suits)
             {
-                foreach (string face in faces)
+                foreach (Face face in faces)
                 {
                     Card card = new Card(face, suit);
                     Cards.Add(card);
