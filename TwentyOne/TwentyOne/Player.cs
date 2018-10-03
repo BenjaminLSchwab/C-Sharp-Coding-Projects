@@ -19,6 +19,7 @@ namespace TwentyOne
         public int Balance { get; set; }
         public string Name { get; set; }
         public bool IsActivleyPlaying { get; set; }
+        public bool Stay { get; set; }
 
         public static Game operator + (Game game, Player player)
         {
