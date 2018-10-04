@@ -9,13 +9,14 @@ namespace TwentyOne
     public class Player
     {
         public Player(string name, int balance)
-        {
-            Hand = new List<Card>();
+        {           
             Name = name;
             Balance = balance;
         }
 
-        public List<Card> Hand { get; set; }
+        List<Card> _hand = new List<Card>();
+        public List<Card> Hand { get { return _hand; } set { _hand = value; } }
+
         public int Balance { get; set; }
         public string Name { get; set; }
         public bool IsActivleyPlaying { get; set; }

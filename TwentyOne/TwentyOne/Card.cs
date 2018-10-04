@@ -14,9 +14,9 @@ namespace TwentyOne
             Face = face;
         }
 
-        public string Display()
+        public override string ToString()
         {
-            return Face + " of " + Suit;
+            return String.Format("{0} of {1}", Face, Suit);
         }
 
         public Suit Suit { get; set; }
