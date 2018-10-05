@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
 
 namespace TwentyOne
 {
@@ -69,6 +70,7 @@ namespace TwentyOne
                             Console.WriteLine("BlackJack! {0} wins {1}", player.Name, Bets[player] * 1.5);
                             player.Balance = Convert.ToInt32((Bets[player] * 1.5) + Bets[player]);
                             Dealer.Balance -= Convert.ToInt32(Bets[player] * 1.5);
+                            PlayAgainPrompt(player);
                             return;
                         }
                     }
@@ -122,16 +124,7 @@ namespace TwentyOne
                         Console.WriteLine("{0} busted! You lose your bet of {1}. Your balance is now {2}", player.Name, Bets[player], player.Balance);
                         Dealer.Balance += Bets[player];
                         Bets.Remove(player);
-                        Console.WriteLine("Want to play again?");
-                        answer = Console.ReadLine().ToLower();
-                        if (answer.Contains("y"))
-                        {
-                            player.IsActivleyPlaying = true;
-                        }
-                        else
-                        {
-                            player.IsActivleyPlaying = false;
-                        }
+                        PlayAgainPrompt(player);
                         return;
                     }
 
@@ -155,6 +148,10 @@ namespace TwentyOne
                     Console.WriteLine("{0} won {1}!", entry.Key.Name, entry.Value);
                     entry.Key.Balance += 2 * entry.Value;
                     Dealer.Balance -= entry.Value;
+                }
+                foreach (Player player in Players)
+                {
+                    PlayAgainPrompt(player);
                 }
                 return;
             }
@@ -184,11 +181,7 @@ namespace TwentyOne
 
                 }
                 Console.WriteLine("{0}'s balance is now {1}.", player.Name, player.Balance);
-                Console.WriteLine("Play again?");
-                string answer = Console.ReadLine().ToLower();
-                if (answer.Contains("y")) player.IsActivleyPlaying = true;
-                
-                else player.IsActivleyPlaying = false;
+                PlayAgainPrompt(player);
             }
 
         }
@@ -202,6 +195,15 @@ namespace TwentyOne
         public void WalkAway(Player player)
         {
             throw new NotImplementedException();
+        }
+
+        public void PlayAgainPrompt(Player player)
+        {
+            Console.WriteLine("Play again?");
+            string answer = Console.ReadLine().ToLower();
+            if (answer.Contains("y")) player.IsActivleyPlaying = true;
+
+            else player.IsActivleyPlaying = false;
         }
         
     }

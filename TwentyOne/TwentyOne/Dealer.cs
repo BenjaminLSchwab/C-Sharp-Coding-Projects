@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
+using System.IO;
 
 namespace TwentyOne
 {
@@ -15,8 +16,14 @@ namespace TwentyOne
         public void Deal(List<Card> Hand)
         {
             Hand.Add(Deck.Cards.First());
-            Console.WriteLine(Deck.Cards.First().ToString());
-            Deck.Cards.RemoveAt(0);
+            string card = String.Format(Deck.Cards.First().ToString() + "\n");
+            Thread.Sleep(500);
+            Console.WriteLine(card);
+            using (StreamWriter file = new StreamWriter(@"C:\Users\DwarfKhan\Documents\work\TechAcademyLocalRepos\C-Sharp-Coding-Projects\TwentyOne\logs\cardlog.txt", true))
+            {
+                file.WriteLine(card);
+            }
+                Deck.Cards.RemoveAt(0);
         }
     }
 }
