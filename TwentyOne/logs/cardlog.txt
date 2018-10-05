@@ -1,60 +1,21 @@
-Queen of Hearts
+New hand on 10/5/2018 11:59:20 AM
+Players:
+Jack Black, starting balance:22
+10/5/2018 11:59:28 AM
+Nine of Spades
 
-Four of Diamonds
+10/5/2018 11:59:29 AM
+Six of Clubs
 
-Four of Hearts
+10/5/2018 11:59:29 AM
+Three of Spades
 
+10/5/2018 11:59:30 AM
 Jack of Spades
 
-Two of Hearts
-
-Seven of Clubs
-
-Ten of Spades
-
-King of Diamonds
-
-Seven of Spades
-
-Two of Clubs
-
-King of Clubs
-
-Five of Diamonds
-
-Four of Clubs
-
-Five of Hearts
-
-Seven of Diamonds
-
+10/5/2018 11:59:56 AM
 Jack of Diamonds
 
-Six of Hearts
-
-Ace of Clubs
-
-Eight of Hearts
-
-Five of Spades
-
-Jack of Diamonds
-
-Six of Spades
-
-Five of Diamonds
-
-King of Diamonds
-
-Ace of Diamonds
-
-Queen of Diamonds
-
-Seven of Hearts
-
-Jack of Diamonds
-
-Seven of Clubs
-
-Ten of Hearts
-
+End hand on 10/5/2018 12:00:00 PM
+Players:
+Jack Black, ending balance:1

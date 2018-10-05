@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
+using System.IO;
 
 namespace TwentyOne
 {
@@ -13,7 +14,7 @@ namespace TwentyOne
         public TwentyOneDealer Dealer { get; set; }
 
         public override void Play()
-        {
+        {            
             Console.Clear();
             Dealer = new TwentyOneDealer();
             foreach (Player player in Players)
@@ -197,7 +198,7 @@ namespace TwentyOne
             throw new NotImplementedException();
         }
 
-        public void PlayAgainPrompt(Player player)
+        void PlayAgainPrompt(Player player)
         {
             Console.WriteLine("Play again?");
             string answer = Console.ReadLine().ToLower();
@@ -205,6 +206,8 @@ namespace TwentyOne
 
             else player.IsActivleyPlaying = false;
         }
+
+
         
     }
 }

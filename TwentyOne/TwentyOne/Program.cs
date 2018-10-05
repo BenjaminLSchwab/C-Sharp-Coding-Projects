@@ -48,7 +48,9 @@ namespace TwentyOne
 
             while (player.IsActivleyPlaying && player.Balance > 0)
             {
+                game.StartLog();
                 game.Play();
+                game.EndLog();
             }
 
             game -= player;
