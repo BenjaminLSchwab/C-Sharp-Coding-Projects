@@ -265,3 +265,27 @@ Eight of Clubs
 End hand on 10/5/2018 1:40:21 PM
 Players:
 Jonyyyy, ending balance:8
+New hand on 10/5/2018 1:55:24 PM
+Players:
+holyCasinoLibraryBatman, starting balance:1
+10/5/2018 1:55:26 PM
+Eight of Spades
+
+10/5/2018 1:55:26 PM
+Four of Diamonds
+
+10/5/2018 1:55:26 PM
+Three of Clubs
+
+10/5/2018 1:55:27 PM
+King of Diamonds
+
+10/5/2018 1:55:42 PM
+Five of Spades
+
+10/5/2018 1:55:47 PM
+Nine of Spades
+
+End hand on 10/5/2018 1:55:50 PM
+Players:
+holyCasinoLibraryBatman, ending balance:0

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Threading;
 using System.IO;
 
-namespace TwentyOne
+namespace Casino
 {
     public class TwentyOneGame : Game, IWalkAway
     {
