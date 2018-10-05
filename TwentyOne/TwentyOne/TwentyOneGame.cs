@@ -68,16 +68,25 @@ namespace TwentyOne
                         bool blackJack = TwentyOneRules.CheckForBlackJack(player.Hand);
                         if (blackJack)
                         {
-                            Console.WriteLine("BlackJack! {0} wins {1}", player.Name, Bets[player] * 1.5);
-                            player.Balance = Convert.ToInt32((Bets[player] * 1.5) + Bets[player]);
+                            Console.WriteLine("BlackJack! {0} wins {1}", player.Name, Convert.ToInt32((float)Bets[player] * 1.5));
+                            player.Balance = Convert.ToInt32(((float)Bets[player] * 1.5) + Bets[player]);
                             Dealer.Balance -= Convert.ToInt32(Bets[player] * 1.5);
                             PlayAgainPrompt(player);
                             return;
                         }
                     }
                 }
+
+                if (i == 1)
+                {
                 Console.Write("Dealer: ");
-                Dealer.Deal(Dealer.Hand);
+                }
+                else
+                {
+                    Console.Write("Dealer: Hidden Card\n");
+                }
+
+                Dealer.Deal(Dealer.Hand, (i == 1)? false : true); //dealers first card is hidden
                 if (i == 1)
                 {
                     bool blackJack = TwentyOneRules.CheckForBlackJack(Dealer.Hand);
@@ -88,17 +97,20 @@ namespace TwentyOne
                         {
                             Dealer.Balance += entry.Value;
                         }
+                        foreach (Player player in Players)
+                        {
+                            PlayAgainPrompt(player);
+                        }
+                        return;
                     }
                 }
             }
 
             foreach (Player player in Players)
             {
-                Console.WriteLine("\nDealer's Cards:");
-                foreach (Card card in Dealer.Hand)
-                {
-                    Console.Write("{0}, ", card.ToString());
-                }
+                Console.WriteLine("\nDealer's top card:");
+                Console.Write(Dealer.Hand.Last().ToString());
+                
                 while (!player.Stay)
                 {
                     Console.WriteLine("\n{0}'s cards:", player.Name);
@@ -134,6 +146,7 @@ namespace TwentyOne
 
             Dealer.IsBusted = TwentyOneRules.IsBusted(Dealer.Hand);
             Dealer.Stay = TwentyOneRules.ShouldDealerStay(Dealer.Hand);
+            Console.WriteLine("Dealer reveals his bottom card:{0}", Dealer.Hand.First().ToString());
             while (!Dealer.Stay && !Dealer.IsBusted)
             {
                 Console.WriteLine("Dealer is hitting...");
