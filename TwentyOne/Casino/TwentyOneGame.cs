@@ -37,22 +37,15 @@ namespace Casino
                 bool validInput = false;
                 while (!validInput)
                 {
-                    try
-                    {
-                        bet = Convert.ToInt32(Console.ReadLine());
-                        validInput = true;
-                    }
-                    catch
-                    {
-                        Console.WriteLine("Whole number bets only, please.");
-                        validInput = false;
-                    }
+                    validInput = int.TryParse(Console.ReadLine(), out bet);
+                    if(!validInput) Console.WriteLine("Whole number bets only, please.");
                 }
                 bool sucessfullyBet = player.Bet(bet);
                 if (!sucessfullyBet)
                 {
                     return;
                 }
+                if (bet < 0) throw new FraudException();
                 Bets[player] = bet;
             }
 

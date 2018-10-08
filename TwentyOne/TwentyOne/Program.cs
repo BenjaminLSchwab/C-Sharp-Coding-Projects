@@ -20,16 +20,18 @@ namespace TwentyOne
             int bank = 0;
             while (!validInput)
             {
-                try
-                {
-                    bank = Convert.ToInt32(Console.ReadLine());
-                    validInput = true;
-                }
-                catch
-                {
-                    Console.WriteLine("Please input a whole number. This is the big leagues we dont care about cents!");
-                    validInput = false;
-                }
+                validInput = int.TryParse(Console.ReadLine(), out bank);
+                if (!validInput) Console.WriteLine("Please input a whole number. This is the big leagues we dont care about cents!");
+                //try
+                //{
+                //    bank = Convert.ToInt32(Console.ReadLine());
+                //    validInput = true;
+                //}
+                //catch
+                //{
+                //    Console.WriteLine("Please input a whole number. This is the big leagues we dont care about cents!");
+                //    validInput = false;
+                //}
             }
 
             Console.WriteLine("Well, {0}, are you ready to begin?", playerName);
@@ -49,9 +51,24 @@ namespace TwentyOne
 
             while (player.IsActivleyPlaying && player.Balance > 0)
             {
-                game.StartLog();
-                game.Play();
-                game.EndLog();
+                try
+                {
+                    game.StartLog();
+                    game.Play();
+                    game.EndLog();
+                }
+                catch(FraudException)
+                {
+                    Console.WriteLine("Security! Show this man the dungeon.");
+                    Console.ReadLine();
+                    return;
+                }
+                catch(Exception)
+                {
+                    Console.WriteLine("There was an error, please run around in circles.");
+                    Console.ReadLine();
+                    return;
+                }
             }
 
             game -= player;
