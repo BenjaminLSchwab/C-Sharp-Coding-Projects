@@ -289,3 +289,27 @@ Nine of Spades
 End hand on 10/5/2018 1:55:50 PM
 Players:
 holyCasinoLibraryBatman, ending balance:0
+New hand on 10/8/2018 10:39:24 AM
+Players:
+Name:yarp, ID:5715075c-b1a3-4b28-89f8-aba09d7a280a starting balance:43
+10/8/2018 10:39:31 AM
+King of Hearts
+
+10/8/2018 10:39:32 AM
+Four of Hearts
+
+10/8/2018 10:39:32 AM
+Seven of Diamonds
+
+10/8/2018 10:39:32 AM
+Two of Spades
+
+10/8/2018 10:40:22 AM
+Six of Spades
+
+10/8/2018 10:40:23 AM
+Six of Clubs
+
+End hand on 10/8/2018 10:40:29 AM
+Players:
+yarp, ending balance:3

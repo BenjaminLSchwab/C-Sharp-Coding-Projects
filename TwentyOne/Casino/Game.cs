@@ -36,7 +36,8 @@ namespace Casino
                 file.WriteLine("Players:");
                 foreach (Player player in Players)
                 {
-                    file.WriteLine("{0}, starting balance:{1}", player.Name, player.Balance);
+                    file.WriteLine("Name:{0}, ID:{1} starting balance:{2}", player.Name, player.Id, player.Balance);
+
                 }
             }
         }

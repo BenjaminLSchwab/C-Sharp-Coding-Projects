@@ -8,10 +8,12 @@ namespace Casino
 {
     public class Player
     {
+        public Player(string name) : this(name, 10) { }
         public Player(string name, int balance)
         {           
             Name = name;
             Balance = balance;
+            Id = Guid.NewGuid();
         }
 
         List<Card> _hand = new List<Card>();
@@ -21,6 +23,7 @@ namespace Casino
         public string Name { get; set; }
         public bool IsActivleyPlaying { get; set; }
         public bool Stay { get; set; }
+        public Guid Id { get; set; }
 
         public bool Bet(int amount)
         {
