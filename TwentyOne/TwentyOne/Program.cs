@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using Casino;
+using System.Data.SqlClient;
+using System.Data;
 
 namespace TwentyOne
 {
@@ -14,6 +16,21 @@ namespace TwentyOne
         {
             Console.WriteLine("Welcome to back alley no-limit to-the-death black jack. What is your name?");
             string playerName = Console.ReadLine();
+
+            if (playerName.ToLower() == "admin")
+            {
+                List<ExceptionEntity> exceptions = ReadExceptions();
+                foreach (var exception in exceptions)
+                {
+                    Console.Write(exception.Id + " | ");
+                    Console.Write(exception.ExceptionType + " | ");
+                    Console.Write(exception.ExceptionMessage + " | ");
+                    Console.Write(exception.TimeStamp + " | ");
+                    Console.WriteLine();
+                }
+                Console.ReadLine();
+                return;
+            }
 
             Console.WriteLine("How much money do you have? (honor system)");
             bool validInput = false;
@@ -57,15 +74,17 @@ namespace TwentyOne
                     game.Play();
                     game.EndLog();
                 }
-                catch(FraudException)
+                catch(FraudException ex)
                 {
-                    Console.WriteLine("Security! Show this man the dungeon.");
+                    Console.WriteLine(ex.Message);
+                    UpdateDatabaseWithException(ex);
                     Console.ReadLine();
                     return;
                 }
-                catch(Exception)
+                catch(Exception ex)
                 {
                     Console.WriteLine("There was an error, please run around in circles.");
+                    UpdateDatabaseWithException(ex);
                     Console.ReadLine();
                     return;
                 }
@@ -77,6 +96,58 @@ namespace TwentyOne
 
         }
 
-        
+        private static void UpdateDatabaseWithException(Exception ex)
+        {
+            string connectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=TwentyOneGame;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+            string queryString = @"INSERT INTO Exceptions(ExceptionType, ExceptionMessage, TimeStamp) VALUES
+                                    (@ExceptionType, @ExceptionMessage, @TimeStamp)";
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                SqlCommand command = new SqlCommand(queryString, connection);
+                command.Parameters.Add("@ExceptionType", SqlDbType.VarChar);
+                command.Parameters.Add("@ExceptionMessage", SqlDbType.VarChar);
+                command.Parameters.Add("@TimeStamp", SqlDbType.DateTime);
+
+                command.Parameters["@ExceptionType"].Value = ex.GetType().ToString();
+                command.Parameters["@ExceptionMessage"].Value = ex.Message;
+                command.Parameters["@TimeStamp"].Value = DateTime.Now;
+
+                connection.Open();
+                command.ExecuteNonQuery();
+                connection.Close();
+
+
+            }
+        }
+
+        private static List<ExceptionEntity> ReadExceptions()
+        {
+            string connectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=TwentyOneGame;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+            string queryString = @"SELECT Id, ExceptionType, ExceptionMessage, TimeStamp FROM Exceptions";
+
+            List<ExceptionEntity> exceptions = new List<ExceptionEntity>();
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                SqlCommand command = new SqlCommand(queryString, connection);
+
+                connection.Open();
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    ExceptionEntity exception = new ExceptionEntity();
+                    exception.Id = Convert.ToInt32(reader["Id"]);
+                    exception.ExceptionType = reader["ExceptionType"].ToString();
+                    exception.ExceptionMessage = reader["ExceptionMessage"].ToString();
+                    exception.TimeStamp = Convert.ToDateTime(reader["TimeStamp"]);
+                    exceptions.Add(exception);
+
+                }
+                connection.Close();
+            }
+                return exceptions;
+
+        }
+
+
     }
 }

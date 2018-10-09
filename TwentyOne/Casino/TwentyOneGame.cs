@@ -45,7 +45,7 @@ namespace Casino
                 {
                     return;
                 }
-                if (bet < 0) throw new FraudException();
+                if (bet < 0) throw new FraudException("Security! Show this man the dungeon.");
                 Bets[player] = bet;
             }
 
