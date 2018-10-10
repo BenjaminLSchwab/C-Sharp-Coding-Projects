@@ -20,6 +20,7 @@ namespace NewsLetterAppMVC.Controllers
                 foreach (var signUp in signUps)
                 {
                     SignUpVm signUpVm = new SignUpVm();
+                    signUpVm.Id = signUp.Id;
                     signUpVm.FirstName = signUp.FirstName;
                     signUpVm.LastName = signUp.LastName;
                     signUpVm.EmailAddress = signUp.EmailAddress;
