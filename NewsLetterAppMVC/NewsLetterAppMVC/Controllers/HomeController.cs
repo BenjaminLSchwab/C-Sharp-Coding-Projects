@@ -29,25 +29,34 @@ namespace NewsLetterAppMVC.Controllers
                 return View("~/Views/Shared/Error.cshtml");
             }
 
-            
-            string queryString = @"INSERT INTO SignUps (FirstName, LastName, EmailAddress) VALUES
-                                    (@FirstName, @LastName, @EmailAddress)";
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (NewsletterEntities db = new NewsletterEntities())
             {
-                SqlCommand command = new SqlCommand(queryString, connection);
-                command.Parameters.Add("@FirstName", SqlDbType.VarChar);
-                command.Parameters.Add("@LastName", SqlDbType.VarChar);
-                command.Parameters.Add("@EmailAddress", SqlDbType.VarChar);
+                var signUp = new SignUp();
+                signUp.FirstName = firstName;
+                signUp.LastName = lastName;
+                signUp.EmailAddress = emailAddress;
 
-                command.Parameters["@FirstName"].Value = firstName;
-                command.Parameters["@LastName"].Value = lastName;
-                command.Parameters["@EmailAddress"].Value = emailAddress;
-
-                connection.Open();
-                command.ExecuteNonQuery();
-                connection.Close();
-
+                db.SignUps.Add(signUp);
+                db.SaveChanges();
             }
+                //string queryString = @"INSERT INTO SignUps (FirstName, LastName, EmailAddress) VALUES
+                //                        (@FirstName, @LastName, @EmailAddress)";
+                //using (SqlConnection connection = new SqlConnection(connectionString))
+                //{
+                //    SqlCommand command = new SqlCommand(queryString, connection);
+                //    command.Parameters.Add("@FirstName", SqlDbType.VarChar);
+                //    command.Parameters.Add("@LastName", SqlDbType.VarChar);
+                //    command.Parameters.Add("@EmailAddress", SqlDbType.VarChar);
+
+                //    command.Parameters["@FirstName"].Value = firstName;
+                //    command.Parameters["@LastName"].Value = lastName;
+                //    command.Parameters["@EmailAddress"].Value = emailAddress;
+
+                //    connection.Open();
+                //    command.ExecuteNonQuery();
+                //    connection.Close();
+
+                //}
 
                 return View("Success");
         }
