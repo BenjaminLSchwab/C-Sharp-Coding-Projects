@@ -54,40 +54,45 @@ namespace NewsLetterAppMVC.Controllers
 
         public ActionResult Admin()
         {
-            //string queryString = @"SELECT Id, FirstName, LastName, EmailAddress, SocialSecurityNumber from SignUps";
-            //List<NewsletterSignUp> signUps = new List<NewsletterSignUp>();
-
-            //using (SqlConnection connection = new SqlConnection(connectionString))
-            //{
-            //    SqlCommand command = new SqlCommand(queryString, connection);
-
-            //    connection.Open();
-
-            //    SqlDataReader reader = command.ExecuteReader();
-            //    while (reader.Read())
-            //    {
-            //        NewsletterSignUp signUp = new NewsletterSignUp();
-            //        signUp.Id = Convert.ToInt32(reader["Id"]);
-            //        signUp.FirstName = reader["FirstName"].ToString();
-            //        signUp.LastName = reader["LastName"].ToString();
-            //        signUp.EmailAddress = reader["EmailAddress"].ToString();
-            //        signUp.SocialSecurityNumber = reader["SocialSecurityNumber"].ToString();
-            //        signUps.Add(signUp);
-            //    }
-
-            //    //connection.Close();
-            //}
-            List<SignUpVm> SignUpVms = new List<SignUpVm>();
-            foreach (var signUp in signUps)
+            using (NewsletterEntities db = new NewsletterEntities())
             {
-                SignUpVm signUpVm = new SignUpVm();
-                signUpVm.FirstName = signUp.FirstName;
-                signUpVm.LastName = signUp.LastName;
-                signUpVm.EmailAddress = signUp.EmailAddress;
-                SignUpVms.Add(signUpVm);
-            }
+                var signUps = db.SignUps;
+                List<SignUpVm> SignUpVms = new List<SignUpVm>();
+                foreach (var signUp in signUps)
+                {
+                    SignUpVm signUpVm = new SignUpVm();
+                    signUpVm.FirstName = signUp.FirstName;
+                    signUpVm.LastName = signUp.LastName;
+                    signUpVm.EmailAddress = signUp.EmailAddress;
+                    SignUpVms.Add(signUpVm);
+                }
 
                 return View(SignUpVms);
+            }
+                //string queryString = @"SELECT Id, FirstName, LastName, EmailAddress, SocialSecurityNumber from SignUps";
+                //List<NewsletterSignUp> signUps = new List<NewsletterSignUp>();
+
+                //using (SqlConnection connection = new SqlConnection(connectionString))
+                //{
+                //    SqlCommand command = new SqlCommand(queryString, connection);
+
+                //    connection.Open();
+
+                //    SqlDataReader reader = command.ExecuteReader();
+                //    while (reader.Read())
+                //    {
+                //        NewsletterSignUp signUp = new NewsletterSignUp();
+                //        signUp.Id = Convert.ToInt32(reader["Id"]);
+                //        signUp.FirstName = reader["FirstName"].ToString();
+                //        signUp.LastName = reader["LastName"].ToString();
+                //        signUp.EmailAddress = reader["EmailAddress"].ToString();
+                //        signUp.SocialSecurityNumber = reader["SocialSecurityNumber"].ToString();
+                //        signUps.Add(signUp);
+                //    }
+
+                //    //connection.Close();
+                //}
+
         }
     }
 }
