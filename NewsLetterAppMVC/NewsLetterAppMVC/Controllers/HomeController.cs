@@ -39,23 +39,5 @@ namespace NewsLetterAppMVC.Controllers
                 return View("Success");
         }
 
-        public ActionResult Admin()
-        {
-            using (NewsletterEntities db = new NewsletterEntities())
-            {
-                var signUps = db.SignUps;
-                List<SignUpVm> SignUpVms = new List<SignUpVm>();
-                foreach (var signUp in signUps)
-                {
-                    SignUpVm signUpVm = new SignUpVm();
-                    signUpVm.FirstName = signUp.FirstName;
-                    signUpVm.LastName = signUp.LastName;
-                    signUpVm.EmailAddress = signUp.EmailAddress;
-                    SignUpVms.Add(signUpVm);
-                }
-
-                return View(SignUpVms);
-            }
-        }
     }
 }
