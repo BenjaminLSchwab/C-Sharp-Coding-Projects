@@ -15,7 +15,8 @@ namespace NewsLetterAppMVC.Controllers
         {
             using (NewsletterEntities db = new NewsletterEntities())
             {
-                var signUps = db.SignUps;
+                //var signUps = db.SignUps.Where(x => x.Removed == null).ToList();
+                var signUps = (from c in db.SignUps where c.Removed == null select c).ToList();
                 List<SignUpVm> SignUpVms = new List<SignUpVm>();
                 foreach (var signUp in signUps)
                 {
@@ -29,6 +30,17 @@ namespace NewsLetterAppMVC.Controllers
 
                 return View(SignUpVms);
             }
+        }
+
+        public ActionResult Unsubscribe(int Id)
+        {
+            using (NewsletterEntities db = new NewsletterEntities())
+            {
+                var signUp = db.SignUps.Find(Id);
+                signUp.Removed = DateTime.Now;
+                db.SaveChanges();
+            }
+            return RedirectToAction("Index");
         }
     }
 }
