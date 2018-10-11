@@ -15,18 +15,18 @@ namespace CarInsurance.Controllers
         }
 
         [HttpPost]
-        public ActionResult SendForm(string firstName, string lastName, string emailAddress, DateTime dateOfBirth, DateTime carYear, string carMake, string carModel, bool dui, int speedTickets, bool fullCoverage)
+        public ActionResult SendForm(string firstName, string lastName, string emailAddress, DateTime dateOfBirth, int carYear, string carMake, string carModel, bool dui, int speedTickets, string coverage)
         {
-            if (string.IsNullOrEmpty(firstName) || string.IsNullOrEmpty(lastName) || string.IsNullOrEmpty(emailAddress) || dateOfBirth == null || carYear == null || string.IsNullOrEmpty(carMake) || string.IsNullOrEmpty(carModel))
+            if (string.IsNullOrEmpty(firstName) || string.IsNullOrEmpty(lastName) || string.IsNullOrEmpty(emailAddress) || dateOfBirth == null || carYear == 0 || string.IsNullOrEmpty(carMake) || string.IsNullOrEmpty(carModel) || string.IsNullOrEmpty(coverage))
             {
                 return View("~/Views/Shared/Error.cshtml");
             }
 
                 decimal quoteAmount = 50;
 
-            using (CarInsuranceEntities db = new CarInsuranceEntities())
+            using (var db = new CarInsuranceEntities1())
             {
-                var quote = new Quote();
+                var quote = new InsuranceQuote();
 
 
                 if(DateTime.Now - dateOfBirth < TimeSpan.FromDays(365 * 25))// if user is under 25
@@ -42,11 +42,11 @@ namespace CarInsurance.Controllers
                     quoteAmount += 25;
                 }
 
-                if (carYear.Year < 2000)
+                if (carYear < 2000)
                 {
                     quoteAmount += 25;
                 }
-                else if (carYear.Year > 2015)
+                else if (carYear > 2015)
                 {
                     quoteAmount += 25;
                 }
@@ -68,6 +68,8 @@ namespace CarInsurance.Controllers
                     quoteAmount *= (decimal)1.25;
                 }
 
+                bool fullCoverage = (coverage == "Full");
+
                 if (fullCoverage)
                 {
                     quoteAmount *= (decimal)1.5;
@@ -77,15 +79,16 @@ namespace CarInsurance.Controllers
                 quote.LastName = lastName;
                 quote.EmailAddress = emailAddress;
                 quote.DateOfBirth = dateOfBirth;
-                quote.CarYear = carYear;
+                string CarDate = string.Format("01-01-" + carYear);
+                quote.CarYear = DateTime.Parse(CarDate);
                 quote.CarMake = carMake;
                 quote.CarModel = carModel;
                 quote.Dui = dui;
                 quote.SpeedTickets = speedTickets;
                 quote.FullCoverage = fullCoverage;
-                quote.Quote1 = quoteAmount;
+                quote.Quote = quoteAmount;
 
-                db.Quotes.Add(quote);
+                db.InsuranceQuotes.Add(quote);
                 db.SaveChanges();
             }
 

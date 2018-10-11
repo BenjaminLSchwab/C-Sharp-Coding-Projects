@@ -12,7 +12,7 @@ namespace CarInsurance.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Quote
+    public partial class InsuranceQuote
     {
         public int Id { get; set; }
         public string FirstName { get; set; }
@@ -25,6 +25,6 @@ namespace CarInsurance.Models
         public Nullable<bool> Dui { get; set; }
         public Nullable<int> SpeedTickets { get; set; }
         public Nullable<bool> FullCoverage { get; set; }
-        public Nullable<decimal> Quote1 { get; set; }
+        public Nullable<decimal> Quote { get; set; }
     }
 }

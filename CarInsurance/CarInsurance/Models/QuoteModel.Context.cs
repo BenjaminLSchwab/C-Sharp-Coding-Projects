@@ -13,10 +13,10 @@ namespace CarInsurance.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class CarInsuranceEntities : DbContext
+    public partial class CarInsuranceEntities1 : DbContext
     {
-        public CarInsuranceEntities()
-            : base("name=CarInsuranceEntities")
+        public CarInsuranceEntities1()
+            : base("name=CarInsuranceEntities1")
         {
         }
     
@@ -25,6 +25,6 @@ namespace CarInsurance.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Quote> Quotes { get; set; }
+        public virtual DbSet<InsuranceQuote> InsuranceQuotes { get; set; }
     }
 }

@@ -13,9 +13,9 @@ namespace CarInsurance.Controllers
         // GET: Admin
         public ActionResult Index()
         {
-            using (var db = new CarInsuranceEntities())
+            using (var db = new CarInsuranceEntities1())
             {
-                var quotes = db.Quotes;
+                var quotes = db.InsuranceQuotes;
                 var quoteVms = new List<QuoteVm>();
                 foreach (var quote in quotes)
                 {
@@ -23,7 +23,7 @@ namespace CarInsurance.Controllers
                     quoteVm.FirstName = quote.FirstName;
                     quoteVm.LastName = quote.LastName;
                     quoteVm.EmailAddress = quote.EmailAddress;
-                    quoteVm.QuoteAmount = (decimal)quote.Quote1;
+                    quoteVm.QuoteAmount = (decimal)quote.Quote;
 
                     quoteVms.Add(quoteVm);
                 }
