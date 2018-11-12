@@ -1,2 +1,2 @@
 # C-Sharp-Coding-Projects
-Tech Academy C# Course
+These are some C# projects I did to improve my C# skills.
